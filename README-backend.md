@@ -1,10 +1,16 @@
 ## Notes
 
 * "Use redux as state management. (+++)" - Personally I'd be taking points off for involving redux without further justification.
+* "Home port" supports partial match & is case insensitive.
 
 ## TODO
 
 * "Create a secure API" - using API key, basic auth or other mechanism?
+* Fix Redis config
+* Currently using `node-cron` to call `refreshShips()` every 24 hours. Would be better if it was better integrated with the cache system.
+* UI styling
+* UI tests
+* empty rows & no data display
 
 The dashboard has the following requirements: 
 
