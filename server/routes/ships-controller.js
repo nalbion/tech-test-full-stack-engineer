@@ -5,7 +5,6 @@ const dao = require('../dao/ships-dao');
 /**
  * Request validation is done in app.js by express-validator.
  *
- *
  * @param req
  * @param res
  * @returns {Promise<void>}
@@ -37,8 +36,29 @@ const searchShips = async (req, res) => {
     }
 }
 
+const getShipTypes = async (req, res) => {
+    const cacheKey = `ships_types`;
+    let results = await cache.get(cacheKey);
+
+    try {
+        if (!results) {
+            results = await dao.getShipTypes();
+            await cache.set(cacheKey, results);
+        }
+
+        console.info('ship types:', results);
+
+        res.status(200);
+        res.send(results);
+    } catch (err) {
+        res.status(500);
+        res.send({ errors: [{ msg: err.toString() }] })
+    }
+}
+
 // TODO: upload ship icon, store as ship attribute
 
 module.exports = {
     searchShips,
+    getShipTypes,
 }

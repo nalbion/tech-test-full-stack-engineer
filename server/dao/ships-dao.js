@@ -117,7 +117,20 @@ const searchShips = async (type, weight, home_port, page = 1, limit = 10) => {
     };
 }
 
+const getShipTypes = async () => {
+    let results = await pool.query(`SELECT DISTINCT type FROM ships`);
+    results = results[0].map(record => record.type)
+        .sort();
+
+    const count = results.length;
+
+    return {
+        data: results
+    };
+}
+
 module.exports = {
+    getShipTypes,
     searchShips,
     deleteAllShips,
     getAllShips,

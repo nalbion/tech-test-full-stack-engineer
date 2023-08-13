@@ -1,14 +1,16 @@
 const express = require('express');
 const { query } = require('express-validator');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const { initScheduledJobs } = require('./scheduled');
 const { refreshShips } = require('./scheduled/refresh-ships');
-const { searchShips } = require('./routes/ships-controller');
+const { searchShips, getShipTypes } = require('./routes/ships-controller');
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(cors());
 
 // In case we haven't ever/recently refreshed ships data.
 refreshShips();
@@ -23,6 +25,8 @@ app.get('/', async (req, res) => {
         result: JSON.stringify(rows)
     });
 });
+
+app.get('/ships/types', getShipTypes);
 
 app.get('/ships',
     query('type', 'Invalid ship type').optional().isIn(['Barge', 'Cargo', 'High Speed Craft', 'Tug']),
