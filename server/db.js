@@ -1,4 +1,4 @@
-const { createPool } = require('mysql');
+const { createPool } = require('mysql2/promise');
 const { promisify } = require('util');
 
 const {
@@ -30,9 +30,6 @@ pool.getConnection((err, connection) => {
         }
     }
     if (connection) connection.release();
-    return;
 })
-
-pool.query = promisify(pool.query);
 
 module.exports = pool;

@@ -1,0 +1,15 @@
+POST https://api.spacexdata.com/v4/ships/query
+Content-Type: application/json
+
+{
+  "query": { "type": "Cargo" },
+  "options": { "page": 1, "limit": 100, "select": "type mass_kg home_port name class image" }
+}
+
+### Get all
+
+GET https://api.spacexdata.com/v4/ships
+
+### Our search
+
+GET http://localhost:4000/ships?type=Cargo&home_port=canav

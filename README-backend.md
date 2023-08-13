@@ -1,3 +1,11 @@
+## Notes
+
+* "Use redux as state management. (+++)" - Personally I'd be taking points off for involving redux without further justification.
+
+## TODO
+
+* "Create a secure API" - using API key, basic auth or other mechanism?
+
 The dashboard has the following requirements: 
 
 ## Client
@@ -24,7 +32,7 @@ The dashboard has the following requirements:
 ​
 * Use of react (++)
 * Pagination in api. (+++)
-* Use redux as state management. (+++)
+* Use redux as state management. (+++) 
 * Add validation for the input field: data type ,range, select list. (+)
 * Try to keep a clean commit history. (++)
 * The client should be bundled using webpack and non CRA and ready for production. (+++)

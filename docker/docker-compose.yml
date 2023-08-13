@@ -9,6 +9,9 @@ x-shared-env: &shared-env
   NODE_ENV: 'development'
   IS_DOCKER: 'true'
   CHOKIDAR_USEPOLLING: 'true'
+  REDIS_PASSWORD: cache-in-space
+  REDIS_HOST: cache
+  REDIS_PORT: 6379
 
 services:
 
@@ -43,9 +46,19 @@ services:
     networks:
       - backend
 
+  cache:
+    image: redis:7.0.12-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass cache-in-space
+    volumes:
+      - cache:/data
+
   server:
     depends_on:
       - db
+      - cache
     build:
       context: ../server
     volumes:
@@ -62,3 +75,7 @@ services:
 networks:
     backend:
     frontend:
+
+volumes:
+  cache:
+    driver: local
